@@ -28,7 +28,7 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
       email = prefs.getString('email')!;
-      name = prefs.getString('name')!;
+      name = prefs.getString('name') ?? 'Unknown Name';
     });
   }
 
