@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:login_signup_page/Chats.dart';
-import 'package:login_signup_page/Notification.dart';
-import 'package:login_signup_page/Profile.dart';
+import 'package:login_signup_page/Chats_Notification_Profile/ChatsScreen.dart';
+import 'package:login_signup_page/Chats_Notification_Profile/NotificationScreen.dart';
+import 'package:login_signup_page/Chats_Notification_Profile/ProfileScreen.dart';
 import 'package:login_signup_page/login_page.dart';
 import 'package:login_signup_page/signUp_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
