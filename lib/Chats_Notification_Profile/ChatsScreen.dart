@@ -34,8 +34,9 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
 
   Future<void> _logout() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs
-        .clear(); // This clears all saved preferences including login status
+    await prefs.remove('email');
+    await prefs.remove('password');
+    // This clears all saved preferences including login status
     Navigator.pushReplacementNamed(
         context, loginPageScreen.id); // Navigate back to login screen
   }
