@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup_page/Notification.dart';
 import 'package:login_signup_page/Profile.dart';
+import 'package:login_signup_page/Routes.dart';
 import 'package:login_signup_page/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -13,6 +14,7 @@ class ChatScreenPage extends StatefulWidget {
 }
 
 class _ChatScreenPageState extends State<ChatScreenPage> {
+  int _selectedIndex = 0;
   String? email = ' ';
   String? name = ' ';
   @override
@@ -35,6 +37,14 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
         .clear(); // This clears all saved preferences including login status
     Navigator.pushReplacementNamed(
         context, loginPageScreen.id); // Navigate back to login screen
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index; // Update selected index
+    });
+    Navigator.pushNamed(context,
+        routes[index]); // Navigate to the selected screen using named routes
   }
 
   @override
@@ -113,6 +123,31 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
             trailing: Text('3:01'),
           );
         },
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.supervised_user_circle,
+            ),
+            label: "Profile",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.notifications_active,
+            ),
+            label: "Notification",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.chat_outlined,
+            ),
+            label: "Chats",
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: _onItemTapped,
       ),
     );
   }

@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      initialRoute: isLoggedIn ? loginPageScreen.id : ChatScreenPage.id,
+      // initialRoute: isLoggedIn ? loginPageScreen.id : ChatScreenPage.id,
+      initialRoute: ChatScreenPage.id,
       routes: {
         loginPageScreen.id: (context) => const loginPageScreen(),
         signUpPageScreen.id: (context) => const signUpPageScreen(),
