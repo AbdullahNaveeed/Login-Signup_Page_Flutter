@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:login_signup_page/Chats_Notification_Profile/NotificationScreen.dart';
 import 'package:login_signup_page/Chats_Notification_Profile/ProfileScreen.dart';
+import 'package:login_signup_page/Lists/chatsList.dart';
 import 'package:login_signup_page/Routes/Routes.dart';
 import 'package:login_signup_page/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,22 +106,25 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
         ),
       ),
       body: ListView.builder(
-        itemCount: 15,
+        itemCount: 20,
         itemBuilder: (context, index) {
-          return const ListTile(
+          return ListTile(
             leading: CircleAvatar(
               backgroundColor: Colors.blue,
               child: Text(
-                'A',
-                style: TextStyle(color: Colors.white),
+                nameList[index][0],
+                style: const TextStyle(color: Colors.white),
               ),
             ),
-            title: Text("Abdullah"),
-            subtitle: Text(
-              "Hello",
-              style: TextStyle(color: Colors.grey),
+            title: Text(
+              nameList[index],
+              style: const TextStyle(fontSize: 17),
             ),
-            trailing: Text('3:01'),
+            subtitle: Text(
+              msgsList[index],
+              style: const TextStyle(color: Colors.grey),
+            ),
+            trailing: Text(timeList[index]),
           );
         },
       ),

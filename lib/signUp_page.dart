@@ -1,7 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:login_signup_page/Chats_Notification_Profile/ChatsScreen.dart';
-import 'package:login_signup_page/backgroundImageList.dart';
+import 'package:login_signup_page/Lists/backgroundImageList.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class signUpPageScreen extends StatefulWidget {
