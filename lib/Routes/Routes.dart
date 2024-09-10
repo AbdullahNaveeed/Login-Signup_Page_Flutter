@@ -3,7 +3,7 @@ import 'package:login_signup_page/Chats_Notification_Profile/NotificationScreen.
 import 'package:login_signup_page/Chats_Notification_Profile/ProfileScreen.dart';
 
 final List<String> routes = [
-  ProfilePageScreen.id,
-  NotificationPage.id,
   ChatScreenPage.id,
+  NotificationPage.id,
+  ProfilePageScreen.id,
 ];

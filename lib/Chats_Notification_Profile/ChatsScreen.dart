@@ -133,9 +133,9 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.supervised_user_circle,
+              Icons.chat_outlined,
             ),
-            label: "Profile",
+            label: "Chats",
           ),
           BottomNavigationBarItem(
             icon: Icon(
@@ -145,9 +145,9 @@ class _ChatScreenPageState extends State<ChatScreenPage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.chat_outlined,
+              Icons.supervised_user_circle,
             ),
-            label: "Chats",
+            label: "Profile",
           ),
         ],
         currentIndex: _selectedIndex,

@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       // initialRoute: isLoggedIn ? loginPageScreen.id : ChatScreenPage.id,
-      initialRoute: ChatScreenPage.id,
+      initialRoute: loginPageScreen.id,
       routes: {
         loginPageScreen.id: (context) => const loginPageScreen(),
         signUpPageScreen.id: (context) => const signUpPageScreen(),

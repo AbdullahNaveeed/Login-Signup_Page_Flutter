@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:login_signup_page/Chats_Notification_Profile/ChatsScreen.dart';
 import 'package:login_signup_page/Lists/backgroundImageList.dart';
+import 'package:login_signup_page/Utils/animations.dart';
+import 'package:login_signup_page/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class signUpPageScreen extends StatefulWidget {
@@ -15,6 +17,8 @@ class signUpPageScreen extends StatefulWidget {
 class _signUpPageScreenState extends State<signUpPageScreen> {
   bool? isChecked = false;
   bool isHover = false;
+  int selectedIndex = 0;
+  bool showOption = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
@@ -57,17 +61,97 @@ class _signUpPageScreenState extends State<signUpPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          height: 50,
+          width: double.infinity,
+          child: Row(
+            children: [
+              Expanded(
+                  child: showOption
+                      ? ShowUpAnimation(
+                          delay: 100,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: bgImageList.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = index;
+                                    });
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: selectedIndex == index
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(1),
+                                      child: CircleAvatar(
+                                        radius: 30,
+                                        backgroundImage: AssetImage(
+                                          bgImageList[index],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        )
+                      : const SizedBox()),
+              const SizedBox(
+                width: 20,
+              ),
+              showOption
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showOption = false;
+                        });
+                      },
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 30,
+                      ))
+                  : GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showOption = true;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(1),
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundImage: AssetImage(
+                              bgImageList[selectedIndex],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+            ],
+          ),
+        ),
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(bgImageList[0]), fit: BoxFit.fill),
+              image: AssetImage(bgImageList[selectedIndex]), fit: BoxFit.fill),
         ),
         child: Container(
           width: double.infinity,
-          height: 500,
+          height: 480,
           margin: const EdgeInsets.symmetric(horizontal: 30),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.white),
@@ -222,45 +306,28 @@ class _signUpPageScreenState extends State<signUpPageScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        // Flexible for Checkbox and Text
-                        Container(
-                          width: MediaQuery.of(context).size.width *
-                              0.4, // 40% of screen width
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Checkbox(
-                                fillColor:
-                                    MaterialStatePropertyAll(Colors.white),
-                                checkColor: Colors.black,
-                                value: isChecked,
-                                onChanged: (bool? newValue) {
-                                  setState(() {
-                                    isChecked = newValue;
-                                  });
-                                },
-                                side: BorderSide.none, // No border
-                              ),
-                              const Expanded(
-                                // Wrap the text in an Expanded for flexible width
-                                child: Text(
-                                  "Remember Me",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 14, // Responsive font size
-                                  ),
-                                ),
-                              ),
-                            ],
+                        const Text(
+                          "Already a member? ",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                        MouseRegion(
+                          cursor: SystemMouseCursors.click,
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.pushNamed(context, loginPageScreen.id);
+                            },
+                            child: const Text(
+                              "LOG IN",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ),
-                        // Flexible for FORGET PASSWORD
                       ],
                     ),
                     const Spacer(),
                     const Spacer(),
                     SizedBox(
-                      height: 40,
+                      height: 45,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.white,

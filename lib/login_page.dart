@@ -1,8 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:login_signup_page/Chats_Notification_Profile/ChatsScreen.dart';
 import 'package:login_signup_page/Lists/backgroundImageList.dart';
+import 'package:login_signup_page/Utils/animations.dart';
 import 'package:login_signup_page/signUp_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,6 +17,8 @@ class loginPageScreen extends StatefulWidget {
 class _loginPageScreenState extends State<loginPageScreen> {
   bool? isChecked = false;
   bool isHover = false;
+  int selectedIndex = 0;
+  bool showOption = false;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -28,6 +30,7 @@ class _loginPageScreenState extends State<loginPageScreen> {
     await prefs.setBool('isLoggedIn', true);
   }
 
+//validation
   void _handleLogin() async {
     if (_emailController.text.isNotEmpty &&
         _passwordController.text.isNotEmpty) {
@@ -45,13 +48,93 @@ class _loginPageScreenState extends State<loginPageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          height: 50,
+          width: double.infinity,
+          child: Row(
+            children: [
+              Expanded(
+                  child: showOption
+                      ? ShowUpAnimation(
+                          delay: 100,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: bgImageList.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    setState(() {
+                                      selectedIndex = index;
+                                    });
+                                  },
+                                  child: CircleAvatar(
+                                    radius: 30,
+                                    backgroundColor: selectedIndex == index
+                                        ? Colors.white
+                                        : Colors.transparent,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(1),
+                                      child: CircleAvatar(
+                                        radius: 30,
+                                        backgroundImage: AssetImage(
+                                          bgImageList[index],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        )
+                      : const SizedBox()),
+              const SizedBox(
+                width: 20,
+              ),
+              showOption
+                  ? GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showOption = false;
+                        });
+                      },
+                      child: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 30,
+                      ))
+                  : GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          showOption = true;
+                        });
+                      },
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Padding(
+                          padding: const EdgeInsets.all(1),
+                          child: CircleAvatar(
+                            radius: 30,
+                            backgroundImage: AssetImage(
+                              bgImageList[selectedIndex],
+                            ),
+                          ),
+                        ),
+                      ),
+                    )
+            ],
+          ),
+        ),
+      ),
       body: Container(
         height: double.infinity,
         width: double.infinity,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage(bgImageList[0]), fit: BoxFit.fill),
+              image: AssetImage(bgImageList[selectedIndex]), fit: BoxFit.fill),
         ),
         child: Container(
           width: double.infinity,
@@ -139,7 +222,7 @@ class _loginPageScreenState extends State<loginPageScreen> {
                       child: TextFormField(
                         controller: _passwordController,
                         keyboardType: TextInputType.visiblePassword,
-                        obscureText: true,
+                        // obscureText: true,
                         style: const TextStyle(color: Colors.white),
                         decoration: const InputDecoration(
                           suffixIcon: Icon(
@@ -220,7 +303,7 @@ class _loginPageScreenState extends State<loginPageScreen> {
                     ),
                     const Spacer(),
                     SizedBox(
-                      height: 40,
+                      height: 45,
                       child: TextButton(
                         style: TextButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -243,7 +326,7 @@ class _loginPageScreenState extends State<loginPageScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          "Don't have an account ",
+                          "Don't have an account! ",
                           style: TextStyle(color: Colors.white),
                         ),
                         MouseRegion(

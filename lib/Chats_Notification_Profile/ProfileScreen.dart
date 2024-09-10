@@ -68,7 +68,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
             // Email or Bio
             Text(
               email!,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 color: Colors.grey,
               ),
@@ -80,8 +80,8 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               elevation: 4.0,
               child: ListTile(
-                leading: Icon(Icons.person),
-                title: Text('Full Name'),
+                leading: const Icon(Icons.person),
+                title: const Text('Full Name'),
                 subtitle: Text(name!),
               ),
             ),
@@ -89,8 +89,8 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
               margin: const EdgeInsets.symmetric(vertical: 8.0),
               elevation: 4.0,
               child: ListTile(
-                leading: Icon(Icons.email),
-                title: Text('Email'),
+                leading: const Icon(Icons.email),
+                title: const Text('Email'),
                 subtitle: Text(email!),
               ),
             ),
@@ -115,10 +115,18 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
                 setState(() {});
                 Navigator.pushNamed(context, loginPageScreen.id);
               },
-              icon: Icon(Icons.logout),
-              label: Text('Logout'),
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+              label: const Text(
+                'Logout',
+                style: TextStyle(color: Colors.white),
+              ),
               style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 30, vertical: 15),
+                backgroundColor: Colors.blue,
               ),
             ),
           ],
